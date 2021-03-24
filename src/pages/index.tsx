@@ -1,11 +1,35 @@
+/* eslint-disable react/no-unescaped-entities */
 import * as React from "react"
-import { Link, graphql } from "gatsby"
+import { ReactElement } from "react"
+import { Link, graphql, PageProps } from "gatsby"
 
 import Bio from "../components/bio"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 
-const BlogIndex = ({ data, location }) => {
+type BlogIndexData = {
+  site: {
+    siteMetadata: {
+      title: string
+    }
+  }
+  allMarkdownRemark: {
+    nodes: {
+      excerpt: string
+      fields: {
+        slug: string
+      }
+      frontmatter: {
+        date: string
+        title: string
+        description: string
+      }
+    }[]
+  }
+}
+type BlogIndexProps = PageProps<BlogIndexData>
+
+const BlogIndex = ({ data, location }: BlogIndexProps): ReactElement => {
   const siteTitle = data.site.siteMetadata?.title || `Title`
   const posts = data.allMarkdownRemark.nodes
 
