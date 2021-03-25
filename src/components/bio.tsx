@@ -6,10 +6,11 @@
  */
 
 import * as React from "react"
+import { ReactElement } from "react"
 import { useStaticQuery, graphql } from "gatsby"
 import { StaticImage } from "gatsby-plugin-image"
 
-const Bio = () => {
+const Bio = (): ReactElement => {
   const data = useStaticQuery(graphql`
     query BioQuery {
       site {
@@ -35,7 +36,7 @@ const Bio = () => {
       <StaticImage
         className="bio-avatar"
         layout="fixed"
-        formats={["AUTO", "WEBP", "AVIF"]}
+        formats={["auto", "webp", "avif"]}
         src="../images/profile-pic.png"
         width={50}
         height={50}

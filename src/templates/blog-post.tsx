@@ -1,4 +1,5 @@
 import * as React from "react"
+import { ReactElement } from "react"
 import { Link, graphql } from "gatsby"
 import { MDXRenderer } from "gatsby-plugin-mdx"
 
@@ -6,7 +7,48 @@ import Bio from "../components/bio"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 
-const BlogPostTemplate = ({ data, location }) => {
+type BlogPostData = {
+  site: {
+    siteMetadata: {
+      title: string
+    }
+  }
+  mdx: {
+    id: string
+    excerpt: string
+    body: string
+    frontmatter: {
+      title: string
+      date: string
+      description: string
+    }
+  }
+  previous: {
+    fields: {
+      slug: string
+    }
+    frontmatter: {
+      title: string
+    }
+  }
+  next: {
+    fields: {
+      slug: string
+    }
+    frontmatter: {
+      title: string
+    }
+  }
+}
+type BlogPostTemplateProps = {
+  data: BlogPostData
+  location: Location
+}
+
+const BlogPostTemplate = ({
+  data,
+  location,
+}: BlogPostTemplateProps): ReactElement => {
   const post = data.mdx
   const siteTitle = data.site.siteMetadata?.title || `Title`
   const { previous, next } = data

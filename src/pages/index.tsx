@@ -36,13 +36,15 @@ const BlogIndex = ({ data, location }: BlogIndexProps): ReactElement => {
   if (posts.length === 0) {
     return (
       <Layout location={location} title={siteTitle}>
-        <SEO title="All posts" />
-        <Bio />
-        <p>
-          No blog posts found. Add markdown posts to "content/blog" (or the
-          directory you specified for the "gatsby-source-filesystem" plugin in
-          gatsby-config.js).
-        </p>
+        <>
+          <SEO title="All posts" />
+          <Bio />
+          <p>
+            No blog posts found. Add markdown posts to "content/blog" (or the
+            directory you specified for the "gatsby-source-filesystem" plugin in
+            gatsby-config.js).
+          </p>
+        </>
       </Layout>
     )
   }
