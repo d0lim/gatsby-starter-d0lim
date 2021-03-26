@@ -1,57 +1,57 @@
-import * as React from "react"
-import { ReactElement } from "react"
-import { Link, graphql } from "gatsby"
-import { MDXRenderer } from "gatsby-plugin-mdx"
+import * as React from "react";
+import { ReactElement } from "react";
+import { Link, graphql } from "gatsby";
+import { MDXRenderer } from "gatsby-plugin-mdx";
 
-import Bio from "../components/bio"
-import Layout from "../components/layout"
-import SEO from "../components/seo"
+import Bio from "../components/bio";
+import Layout from "../components/layout";
+import SEO from "../components/seo";
 
 type BlogPostData = {
   site: {
     siteMetadata: {
-      title: string
-    }
-  }
+      title: string;
+    };
+  };
   mdx: {
-    id: string
-    excerpt: string
-    body: string
+    id: string;
+    excerpt: string;
+    body: string;
     frontmatter: {
-      title: string
-      date: string
-      description: string
-    }
-  }
+      title: string;
+      date: string;
+      description: string;
+    };
+  };
   previous: {
     fields: {
-      slug: string
-    }
+      slug: string;
+    };
     frontmatter: {
-      title: string
-    }
-  }
+      title: string;
+    };
+  };
   next: {
     fields: {
-      slug: string
-    }
+      slug: string;
+    };
     frontmatter: {
-      title: string
-    }
-  }
-}
+      title: string;
+    };
+  };
+};
 type BlogPostTemplateProps = {
-  data: BlogPostData
-  location: Location
-}
+  data: BlogPostData;
+  location: Location;
+};
 
 const BlogPostTemplate = ({
   data,
   location,
 }: BlogPostTemplateProps): ReactElement => {
-  const post = data.mdx
-  const siteTitle = data.site.siteMetadata?.title || `Title`
-  const { previous, next } = data
+  const post = data.mdx;
+  const siteTitle = data.site.siteMetadata?.title || `Title`;
+  const { previous, next } = data;
 
   return (
     <Layout location={location} title={siteTitle}>
@@ -101,10 +101,10 @@ const BlogPostTemplate = ({
         </ul>
       </nav>
     </Layout>
-  )
-}
+  );
+};
 
-export default BlogPostTemplate
+export default BlogPostTemplate;
 
 export const pageQuery = graphql`
   query BlogPostBySlug(
@@ -144,4 +144,4 @@ export const pageQuery = graphql`
       }
     }
   }
-`
+`;

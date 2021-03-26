@@ -1,30 +1,30 @@
-import * as React from "react"
-import { ReactElement } from "react"
-import { Link } from "gatsby"
+import * as React from "react";
+import { ReactElement } from "react";
+import { Link } from "gatsby";
 
 type LayoutProps = {
-  location: Location
-  title: string
-  children: ReactElement | ReactElement[]
-}
+  location: Location;
+  title: string;
+  children: ReactElement | ReactElement[];
+};
 
 const Layout = ({ location, title, children }: LayoutProps): ReactElement => {
-  const rootPath = `${__PATH_PREFIX__}/`
-  const isRootPath = location.pathname === rootPath
-  let header
+  const rootPath = `${__PATH_PREFIX__}/`;
+  const isRootPath = location.pathname === rootPath;
+  let header;
 
   if (isRootPath) {
     header = (
       <h1 className="main-heading">
         <Link to="/">{title}</Link>
       </h1>
-    )
+    );
   } else {
     header = (
       <Link className="header-link-home" to="/">
         {title}
       </Link>
-    )
+    );
   }
 
   return (
@@ -37,7 +37,7 @@ const Layout = ({ location, title, children }: LayoutProps): ReactElement => {
         <a href="https://www.gatsbyjs.com">Gatsby</a>
       </footer>
     </div>
-  )
-}
+  );
+};
 
-export default Layout
+export default Layout;
