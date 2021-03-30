@@ -6,6 +6,7 @@ import { MDXRenderer } from "gatsby-plugin-mdx";
 import Bio from "../components/bio";
 import Layout from "../components/layout";
 import SEO from "../components/seo";
+import styled from "styled-components";
 
 type BlogPostData = {
   site: {
@@ -45,6 +46,22 @@ type BlogPostTemplateProps = {
   location: Location;
 };
 
+const BlogPost = styled.article`
+  & header h1 {
+    margin: var(--spacing-0) var(--spacing-0) var(--spacing-4) var(--spacing-0);
+  }
+  & header p {
+    font-size: var(--fontSize-2);
+    font-family: var(--font-heading);
+  }
+`;
+
+const BlogPostNav = styled.nav`
+  & ul {
+    margin: var(--spacing-0);
+  }
+`;
+
 const BlogPostTemplate = ({
   data,
   location,
@@ -59,11 +76,7 @@ const BlogPostTemplate = ({
         title={post.frontmatter.title}
         description={post.frontmatter.description || post.excerpt}
       />
-      <article
-        className="blog-post"
-        itemScope
-        itemType="http://schema.org/Article"
-      >
+      <BlogPost itemScope itemType="http://schema.org/Article">
         <header>
           <h1 itemProp="headline">{post.frontmatter.title}</h1>
           <p>{post.frontmatter.date}</p>
@@ -73,8 +86,8 @@ const BlogPostTemplate = ({
         <footer>
           <Bio />
         </footer>
-      </article>
-      <nav className="blog-post-nav">
+      </BlogPost>
+      <BlogPostNav>
         <ul
           style={{
             display: `flex`,
@@ -99,7 +112,7 @@ const BlogPostTemplate = ({
             )}
           </li>
         </ul>
-      </nav>
+      </BlogPostNav>
     </Layout>
   );
 };

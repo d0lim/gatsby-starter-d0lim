@@ -6,6 +6,7 @@ import { Link, graphql, PageProps } from "gatsby";
 import Bio from "../components/bio";
 import Layout from "../components/layout";
 import SEO from "../components/seo";
+import styled from "styled-components";
 
 type BlogIndexData = {
   site: {
@@ -28,6 +29,24 @@ type BlogIndexData = {
   };
 };
 type BlogIndexProps = PageProps<BlogIndexData>;
+
+const PostListItem = styled.article`
+  margin-bottom: var(--spacing-8);
+  margin-top: var(--spacing-8);
+
+  & p {
+    margin-bottom: var(--spacing-0);
+  }
+  & h2 {
+    font-size: var(--fontSize-4);
+    color: var(--color-primary);
+    margin-bottom: var(--spacing-2);
+    margin-top: var(--spacing-0);
+  }
+  & header {
+    margin-bottom: var(--spacing-4);
+  }
+`;
 
 const BlogIndex = ({ data, location }: BlogIndexProps): ReactElement => {
   const siteTitle = data.site.siteMetadata?.title || `Title`;
@@ -59,11 +78,7 @@ const BlogIndex = ({ data, location }: BlogIndexProps): ReactElement => {
 
           return (
             <li key={post.fields.slug}>
-              <article
-                className="post-list-item"
-                itemScope
-                itemType="http://schema.org/Article"
-              >
+              <PostListItem itemScope itemType="http://schema.org/Article">
                 <header>
                   <h2>
                     <Link to={post.fields.slug} itemProp="url">
@@ -80,7 +95,7 @@ const BlogIndex = ({ data, location }: BlogIndexProps): ReactElement => {
                     itemProp="description"
                   />
                 </section>
-              </article>
+              </PostListItem>
             </li>
           );
         })}

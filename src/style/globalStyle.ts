@@ -1,6 +1,12 @@
 import { createGlobalStyle } from "styled-components";
 
 const GlobalStyle = createGlobalStyle`
+  /* Custom classes */
+  // TODO: need to figure out what is gatsby-highlight
+  /* .gatsby-highlight {
+    margin-bottom: var(--spacing-8);
+  } */
+
   /* CSS Custom Properties Definitions */
   :root {
     --maxWidth-none: "none";

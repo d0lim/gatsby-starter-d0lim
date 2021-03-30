@@ -9,6 +9,23 @@ import * as React from "react";
 import { ReactElement } from "react";
 import { useStaticQuery, graphql } from "gatsby";
 import { StaticImage } from "gatsby-plugin-image";
+import styled from "styled-components";
+
+const BioDiv = styled.div`
+  display: flex;
+  margin-bottom: var(--spacing-16);
+
+  & p {
+    margin-bottom: var(--spacing-0);
+  }
+
+  & .gatsby-image-wrapper {
+    margin-right: var(--spacing-4);
+    margin-bottom: var(--spacing-0);
+    min-width: 50px;
+    border-radius: 100%;
+  }
+`;
 
 const Bio = (): ReactElement => {
   const data = useStaticQuery(graphql`
@@ -32,9 +49,8 @@ const Bio = (): ReactElement => {
   const social = data.site.siteMetadata?.social;
 
   return (
-    <div className="bio">
+    <BioDiv>
       <StaticImage
-        className="bio-avatar"
         layout="fixed"
         formats={["auto", "webp", "avif"]}
         src="../images/profile-pic.png"
@@ -52,7 +68,7 @@ const Bio = (): ReactElement => {
           </a>
         </p>
       )}
-    </div>
+    </BioDiv>
   );
 };
 
