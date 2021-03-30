@@ -1,37 +1,56 @@
 /* eslint-disable react/no-unescaped-entities */
-import * as React from "react"
-import { ReactElement } from "react"
-import { Link, graphql, PageProps } from "gatsby"
+import * as React from "react";
+import { ReactElement } from "react";
+import { Link, graphql, PageProps } from "gatsby";
 
-import Bio from "../components/bio"
-import Layout from "../components/layout"
-import SEO from "../components/seo"
+import Bio from "../components/bio";
+import Layout from "../components/layout";
+import SEO from "../components/seo";
+import styled from "styled-components";
 
 type BlogIndexData = {
   site: {
     siteMetadata: {
-      title: string
-    }
-  }
+      title: string;
+    };
+  };
   allMdx: {
     nodes: {
-      excerpt: string
+      excerpt: string;
       fields: {
-        slug: string
-      }
+        slug: string;
+      };
       frontmatter: {
-        date: string
-        title: string
-        description: string
-      }
-    }[]
+        date: string;
+        title: string;
+        description: string;
+      };
+    }[];
+  };
+};
+type BlogIndexProps = PageProps<BlogIndexData>;
+
+const PostListItem = styled.article`
+  margin-bottom: var(--spacing-8);
+  margin-top: var(--spacing-8);
+
+  & p {
+    margin-bottom: var(--spacing-0);
   }
-}
-type BlogIndexProps = PageProps<BlogIndexData>
+  & h2 {
+    font-size: var(--fontSize-4);
+    color: var(--color-primary);
+    margin-bottom: var(--spacing-2);
+    margin-top: var(--spacing-0);
+  }
+  & header {
+    margin-bottom: var(--spacing-4);
+  }
+`;
 
 const BlogIndex = ({ data, location }: BlogIndexProps): ReactElement => {
-  const siteTitle = data.site.siteMetadata?.title || `Title`
-  const posts = data.allMdx.nodes
+  const siteTitle = data.site.siteMetadata?.title || `Title`;
+  const posts = data.allMdx.nodes;
 
   if (posts.length === 0) {
     return (
@@ -46,7 +65,7 @@ const BlogIndex = ({ data, location }: BlogIndexProps): ReactElement => {
           </p>
         </>
       </Layout>
-    )
+    );
   }
 
   return (
@@ -54,16 +73,12 @@ const BlogIndex = ({ data, location }: BlogIndexProps): ReactElement => {
       <SEO title="All posts" />
       <Bio />
       <ol style={{ listStyle: `none` }}>
-        {posts.map(post => {
-          const title = post.frontmatter.title || post.fields.slug
+        {posts.map((post) => {
+          const title = post.frontmatter.title || post.fields.slug;
 
           return (
             <li key={post.fields.slug}>
-              <article
-                className="post-list-item"
-                itemScope
-                itemType="http://schema.org/Article"
-              >
+              <PostListItem itemScope itemType="http://schema.org/Article">
                 <header>
                   <h2>
                     <Link to={post.fields.slug} itemProp="url">
@@ -80,16 +95,16 @@ const BlogIndex = ({ data, location }: BlogIndexProps): ReactElement => {
                     itemProp="description"
                   />
                 </section>
-              </article>
+              </PostListItem>
             </li>
-          )
+          );
         })}
       </ol>
     </Layout>
-  )
-}
+  );
+};
 
-export default BlogIndex
+export default BlogIndex;
 
 export const pageQuery = graphql`
   query {
@@ -112,4 +127,4 @@ export const pageQuery = graphql`
       }
     }
   }
-`
+`;
