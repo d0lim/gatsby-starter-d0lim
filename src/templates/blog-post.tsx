@@ -1,57 +1,74 @@
-import * as React from "react"
-import { ReactElement } from "react"
-import { Link, graphql } from "gatsby"
-import { MDXRenderer } from "gatsby-plugin-mdx"
+import * as React from "react";
+import { ReactElement } from "react";
+import { Link, graphql } from "gatsby";
+import { MDXRenderer } from "gatsby-plugin-mdx";
 
-import Bio from "../components/bio"
-import Layout from "../components/layout"
-import SEO from "../components/seo"
+import Bio from "../components/bio";
+import Layout from "../components/layout";
+import SEO from "../components/seo";
+import styled from "styled-components";
 
 type BlogPostData = {
   site: {
     siteMetadata: {
-      title: string
-    }
-  }
+      title: string;
+    };
+  };
   mdx: {
-    id: string
-    excerpt: string
-    body: string
+    id: string;
+    excerpt: string;
+    body: string;
     frontmatter: {
-      title: string
-      date: string
-      description: string
-    }
-  }
+      title: string;
+      date: string;
+      description: string;
+    };
+  };
   previous: {
     fields: {
-      slug: string
-    }
+      slug: string;
+    };
     frontmatter: {
-      title: string
-    }
-  }
+      title: string;
+    };
+  };
   next: {
     fields: {
-      slug: string
-    }
+      slug: string;
+    };
     frontmatter: {
-      title: string
-    }
-  }
-}
+      title: string;
+    };
+  };
+};
 type BlogPostTemplateProps = {
-  data: BlogPostData
-  location: Location
-}
+  data: BlogPostData;
+  location: Location;
+};
+
+const BlogPost = styled.article`
+  & header h1 {
+    margin: var(--spacing-0) var(--spacing-0) var(--spacing-4) var(--spacing-0);
+  }
+  & header p {
+    font-size: var(--fontSize-2);
+    font-family: var(--font-heading);
+  }
+`;
+
+const BlogPostNav = styled.nav`
+  & ul {
+    margin: var(--spacing-0);
+  }
+`;
 
 const BlogPostTemplate = ({
   data,
   location,
 }: BlogPostTemplateProps): ReactElement => {
-  const post = data.mdx
-  const siteTitle = data.site.siteMetadata?.title || `Title`
-  const { previous, next } = data
+  const post = data.mdx;
+  const siteTitle = data.site.siteMetadata?.title || `Title`;
+  const { previous, next } = data;
 
   return (
     <Layout location={location} title={siteTitle}>
@@ -59,11 +76,7 @@ const BlogPostTemplate = ({
         title={post.frontmatter.title}
         description={post.frontmatter.description || post.excerpt}
       />
-      <article
-        className="blog-post"
-        itemScope
-        itemType="http://schema.org/Article"
-      >
+      <BlogPost itemScope itemType="http://schema.org/Article">
         <header>
           <h1 itemProp="headline">{post.frontmatter.title}</h1>
           <p>{post.frontmatter.date}</p>
@@ -73,8 +86,8 @@ const BlogPostTemplate = ({
         <footer>
           <Bio />
         </footer>
-      </article>
-      <nav className="blog-post-nav">
+      </BlogPost>
+      <BlogPostNav>
         <ul
           style={{
             display: `flex`,
@@ -99,12 +112,12 @@ const BlogPostTemplate = ({
             )}
           </li>
         </ul>
-      </nav>
+      </BlogPostNav>
     </Layout>
-  )
-}
+  );
+};
 
-export default BlogPostTemplate
+export default BlogPostTemplate;
 
 export const pageQuery = graphql`
   query BlogPostBySlug(
@@ -144,4 +157,4 @@ export const pageQuery = graphql`
       }
     }
   }
-`
+`;
